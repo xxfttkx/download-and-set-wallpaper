@@ -1,9 +1,10 @@
 import ctypes
 import requests
 import os
+import sys
 
 # GitHub 原始图片地址
-IMAGE_URL = 'https://raw.githubusercontent.com/xxfttkx/image-composite/main/result.png'
+DEFAULT_IMAGE_URL = 'https://raw.githubusercontent.com/xxfttkx/image-composite/main/result.png'
 
 # 下载到本地的路径（可自行修改）
 LOCAL_PATH = os.path.expanduser('F:/Code/python/download-and-set-wallpaper/result.png')
@@ -20,7 +21,9 @@ def set_wallpaper(image_path: str):
 
 if __name__ == '__main__':
     try:
-        download_image(IMAGE_URL, LOCAL_PATH)
+        # 如果有命令行参数，就使用参数，否则使用默认 URL
+        image_url = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_IMAGE_URL
+        download_image(image_url, LOCAL_PATH)
         set_wallpaper(LOCAL_PATH)
         print("壁纸设置成功！")
     except Exception as e:
